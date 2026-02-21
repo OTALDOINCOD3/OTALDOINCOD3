@@ -10,17 +10,21 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - uses: Platane/snk@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate Pacman Graph
+        uses: Platane/snk@v3
         with:
           github_user_name: OTALDOINCOD3
           outputs: |
-            output/pacman-contribution-graph.svg
+            output/pacman-contribution-graph.svg?color_snake=#FFD700&color_dots=#161b22,#0e4429,#006d32,#26a641,#39d353
             output/pacman-contribution-graph-dark.svg?palette=github-dark
 
-      - uses: EndBug/add-and-commit@v9
+      - name: Commit generated files
+        uses: EndBug/add-and-commit@v9
         with:
           message: "Generate Pacman contribution graph"
           add: "output/*"
